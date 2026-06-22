@@ -1,0 +1,44 @@
+# Infrastructure Monitoring with Prometheus and Node Exporter
+
+## Project Overview
+
+This project demonstrates the setup of a monitoring and observability stack using Prometheus and Node Exporter.
+
+Prometheus was configured to scrape metrics exposed by Node Exporter and monitor system resources such as CPU, memory, filesystem, and network usage.
+
+## Architecture
+
+Node Exporter (Port 9100)
+        ↓
+Prometheus (Port 9090)
+        ↓
+PromQL Queries & Monitoring
+
+## Components
+
+- Prometheus
+- Node Exporter
+- PromQL
+
+## Monitoring Workflow
+
+1. Node Exporter exposes host metrics on port 9100.
+2. Prometheus scrapes metrics every 15 seconds.
+3. Metrics are stored in Prometheus TSDB.
+4. PromQL is used to query and visualize metrics.
+
+## Validation
+
+Verified the setup by:
+
+- Confirming Prometheus target status
+- Confirming Node Exporter target status
+- Running PromQL queries
+- Checking metric collection
+
+## Sample Queries
+
+### Target Health
+
+```promql
+up
