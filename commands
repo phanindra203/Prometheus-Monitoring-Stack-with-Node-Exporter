@@ -1,0 +1,167 @@
+# Commands Used in the Project
+
+## 1. Navigate to Prometheus Directory
+
+```bash
+cd prometheus-3.12.0.darwin-arm64
+```
+
+## 2. Check Prometheus Configuration
+
+```bash
+./promtool check config prometheus.yml
+```
+
+## 3. Start Prometheus
+
+```bash
+./prometheus --config.file=prometheus.yml
+```
+
+## 4. Verify Prometheus Process
+
+```bash
+ps -ef | grep prometheus
+```
+
+## 5. Open Prometheus UI
+
+```text
+http://localhost:9090
+```
+
+## 6. Check Prometheus Targets
+
+```text
+http://localhost:9090/targets
+```
+
+## 7. Navigate to Node Exporter Directory
+
+```bash
+cd node_exporter-1.11.1.darwin-arm64
+```
+
+## 8. Start Node Exporter
+
+```bash
+./node_exporter
+```
+
+## 9. Verify Node Exporter Process
+
+```bash
+ps -ef | grep node_exporter
+```
+
+## 10. Verify Metrics Endpoint
+
+```bash
+curl http://localhost:9100/metrics | head
+```
+
+## 11. Verify Prometheus Target Status
+
+```bash
+curl http://localhost:9090/api/v1/targets
+```
+
+## 12. View Prometheus Configuration
+
+```bash
+cat prometheus.yml
+```
+
+## 13. Edit Prometheus Configuration
+
+```bash
+nano prometheus.yml
+```
+
+## 14. Stop Prometheus
+
+```bash
+Ctrl + C
+```
+
+## 15. Stop Node Exporter
+
+```bash
+Ctrl + C
+```
+
+---
+
+# PromQL Queries Used
+
+## Check Target Health
+
+```promql
+up
+```
+
+## CPU Metrics
+
+```promql
+node_cpu_seconds_total
+```
+
+## Memory Available
+
+```promql
+node_memory_MemAvailable_bytes
+```
+
+## Memory Usage
+
+```promql
+node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes
+```
+
+## Filesystem Metrics
+
+```promql
+node_filesystem_size_bytes
+```
+
+## Network Metrics
+
+```promql
+node_network_receive_bytes_total
+```
+
+## Process Metrics
+
+```promql
+process_resident_memory_bytes
+```
+
+---
+
+# Prometheus Configuration Used
+
+```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files: []
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+        labels:
+          app: "prometheus"
+
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["localhost:9100"]
+        labels:
+          app: "node-exporter"
+```
